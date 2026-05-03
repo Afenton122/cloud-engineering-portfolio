@@ -1,0 +1,5 @@
+flowchart LR
+    A[Developer / Terraform CLI] --> B[AWS Provider]
+    B --> C[IAM User: cloud-security-user]
+    C --> D[IAM Policy: S3ReadOnlyPolicy]
+    D --> E[AWS Services (S3 Access)]
