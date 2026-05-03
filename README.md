@@ -152,6 +152,52 @@ Successful Validation:
 - Consistent validation across all contributors
 - Reproducible infrastructure testing pipeline
 
+### 4. Compute Layer (EC2 Baseline - Terraform)
+
+**Overview**
+Provisioned a secure-by-default EC2 compute instance using Terraform to demonstrate workload-layer infrastructure provisioning within AWS. This completes the core AWS infrastructure triangle of identity, networking, and compute.
+
+**Architecture**
+
+```mermaid
+flowchart LR
+    A["Terraform CLI"] --> B["AWS Provider"]
+    B --> C["EC2 Instance - compute-instance"]
+    C --> D["Security Group - compute-sg"]
+    D --> E["Network Access - SSH and HTTP controlled"]
+```
+
+**Resources Deployed**
+- EC2 Instance (t2.micro)
+- Security Group (SSH and HTTP access control)
+- Default VPC subnet placement
+
+**Deployment Workflow**
+- terraform init — provider initialization
+- terraform plan — validation of compute resources
+- terraform apply — EC2 provisioning in AWS
+
+**Evidence of Deployment**
+
+Terraform Apply Output:
+
+![EC2 Terraform Apply](docs/images/ec2-terraform-apply.png)
+
+EC2 Instance Running:
+
+![EC2 Instance](docs/images/ec2-instance.png)
+
+Security Group Configuration:
+
+![Security Group](docs/images/ec2-security-group.png)
+
+**Security Design Principles**
+- Controlled inbound access via Security Groups
+- Minimal compute footprint (t2.micro)
+- No open administrative access beyond SSH
+- Infrastructure-as-Code enforced provisioning
+- Reproducible compute deployment model
+
 ---
 
 ## Tools
