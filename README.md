@@ -10,34 +10,30 @@ Hands-on cloud engineering portfolio focused on AWS infrastructure, identity sec
 
 ### 1. IAM Security Baseline (Terraform)
 
-**Overview**  
+**Overview**
 Implemented a least-privilege IAM identity model using Terraform to provision an AWS IAM user and attach a scoped S3 read-only policy. This demonstrates secure-by-default identity provisioning using Infrastructure-as-Code.
-
----
 
 **Architecture**
 
 ```mermaid
 flowchart LR
     A["Terraform CLI"] --> B["AWS Provider"]
-    B --> C["IAM User: cloud-security-user"]
-    C --> D["IAM Policy: S3ReadOnlyPolicy"]
+    B --> C["IAM User - cloud-security-user"]
+    C --> D["IAM Policy - S3ReadOnlyPolicy"]
     D --> E["S3 Read-Only Access"]
 ```
-Resources Deployed
 
-IAM User: cloud-security-user
-IAM Policy: S3ReadOnlyPolicy (S3 GetObject + ListBucket permissions)
-IAM Policy Attachment (User → Policy binding)
+**Resources Deployed**
+- IAM User: cloud-security-user
+- IAM Policy: S3ReadOnlyPolicy (S3 GetObject + ListBucket permissions)
+- IAM Policy Attachment (User to Policy binding)
 
-Deployment Workflow
+**Deployment Workflow**
+- terraform init — provider initialization
+- terraform plan — change validation and drift detection
+- terraform apply — resource provisioning in AWS
 
-terraform init → provider initialization
-terraform plan → change validation and drift detection
-terraform apply → resource provisioning in AWS
-
-Evidence of Deployment
-
+**Evidence of Deployment**
 
 Terraform Apply Output:
 
@@ -57,14 +53,13 @@ IAM Policy JSON:
 - Explicit resource-level policy scoping
 - Infrastructure-as-Code enforced identity provisioning
 - Fully reproducible Terraform deployments
+
 ---
 
 ### 2. VPC Network Architecture (Terraform)
 
-**Overview**  
-Designed and deployed a basic AWS VPC network using Terraform to demonstrate foundational cloud networking concepts, including subnet segmentation, routing control, and isolated infrastructure design.
-
----
+**Overview**
+Designed and deployed a basic AWS VPC network using Terraform to demonstrate foundational cloud networking concepts including subnet segmentation, routing control, and isolated infrastructure design. NAT Gateway excluded to avoid cost — architecture is documented as proof of concept for private subnet egress design.
 
 **Architecture**
 
@@ -78,31 +73,31 @@ flowchart LR
     D --> G["Route Table"]
 ```
 
-Resources Deployed
+**Resources Deployed**
+- VPC with custom CIDR block
+- Public subnet (internet-accessible tier)
+- Private subnet (isolated workload tier)
+- Internet Gateway
+- Route table associations
 
-VPC with custom CIDR block
-Public subnet (internet-accessible tier)
-Private subnet (isolated workload tier)
-Internet Gateway
-Route table associations
+**Deployment Workflow**
+- terraform init — provider initialization
+- terraform plan — validation of network changes
+- terraform apply — provisioning of VPC infrastructure
 
-Deployment Workflow
+**Evidence of Deployment**
 
-terraform init → provider initialization
-terraform plan → validation of network changes
-terraform apply → provisioning of VPC infrastructure
+Terraform Apply Output:
 
-Evidence of Deployment
+![VPC Terraform Apply](docs/images/vpc-terraform-apply.png)
 
-Terraform apply executed successfully 
-![Terraform Apply](docs/images/vpc-terraform-apply.png)
+VPC Created in AWS Console:
 
-VPC created and visible in AWS console
-![VPC Console View](docs/images/vpc-console.png)
+![VPC Console](docs/images/vpc-console.png)
 
-Subnets and routing tables properly associated
-![Subnet Configuration](docs/images/vpc-subnets.png)
-![Route Table](docs/images/vpc-route-table.png)
+Subnets Created:
+
+![Subnets](docs/images/vpc-subnets.png)
 
 **Security Design Principles**
 - Network segmentation between public and private tiers
@@ -111,6 +106,7 @@ Subnets and routing tables properly associated
 - Explicit routing configuration (no implicit networking paths)
 - Infrastructure-as-Code enforced network consistency
 
+---
 
 ### 3. CI/CD Pipeline (Terraform Validation)
 
