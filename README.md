@@ -1,7 +1,9 @@
 # Cloud Engineering & Security Portfolio
 
-Hi! Welcome to my Cloud Engineering Portfolio. I Built this to demonstrate hands on AWS and Terraform skills to prospective employers. Every resource here was actually deployed and tested in a live AWS account. with a focus on identity security, network segmentation, compute provisioning, and CI/CD automation. Built to mirror real-world cloud engineering patterns using IaC and security-first design.
+
 ---
+
+Hi! Welcome to my Cloud Engineering Portfolio. I Built this to demonstrate hands on AWS and Terraform skills to prospective employers. Every resource here was actually deployed and tested in a live AWS account. with a focus on identity security, network segmentation, compute provisioning, and CI/CD automation. Built to mirror real-world cloud engineering patterns using IaC and security-first design.
 
 ## System Architecture Overview
 
