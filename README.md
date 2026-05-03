@@ -181,15 +181,15 @@ flowchart LR
 
 Terraform Apply Output:
 
-![EC2 Terraform Apply](docs/images/ec2-terraform-apply.png)
+![EC2 Terraform Apply](docs/images/compute-terraform-apply.png)
 
 EC2 Instance Running:
 
-![EC2 Instance](docs/images/ec2-instance.png)
+![EC2 Instance](docs/images/compute-instance.png)
 
 Security Group Configuration:
 
-![Security Group](docs/images/ec2-security-group.png)
+![Security Group](docs/images/compute-security-group.png)
 
 **Security Design Principles**
 - Controlled inbound access via Security Groups
