@@ -36,7 +36,7 @@ IAM Policy Attachment (User → Policy)
 
 Terraform Apply Output:
 
-![Terraform Apply](docs/images/iam-terraform-apply.png)
+![Terraform Apply](docs/images/terraform-apply-success.png)
 
 IAM User Created:
 
