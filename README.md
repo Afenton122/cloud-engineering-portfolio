@@ -10,8 +10,10 @@ Hands-on cloud engineering portfolio focused on AWS infrastructure, identity sec
 
 ### 1. IAM Security Baseline (Terraform)
 
-**Overview**
-Designed and deployed a least-privilege IAM model using Terraform to enforce secure-by-default identity access in AWS.
+**Overview**  
+Implemented a least-privilege IAM identity model using Terraform to provision an AWS IAM user and attach a scoped S3 read-only policy. This demonstrates secure-by-default identity provisioning using Infrastructure-as-Code.
+
+---
 
 **Architecture**
 
@@ -22,17 +24,20 @@ flowchart LR
     C --> D["IAM Policy: S3ReadOnlyPolicy"]
     D --> E["S3 Read-Only Access"]
 ```
-Terraform Resources
+Resources Deployed
 
 IAM User: cloud-security-user
-IAM Policy: S3ReadOnlyPolicy
-IAM Policy Attachment (User → Policy)
-**Deployment Flow**
-- terraform init — provider setup
-- terraform plan — change validation
-- terraform apply — resource provisioning
+IAM Policy: S3ReadOnlyPolicy (S3 GetObject + ListBucket permissions)
+IAM Policy Attachment (User → Policy binding)
 
-**Evidence of Deployment**
+Deployment Workflow
+
+terraform init → provider initialization
+terraform plan → change validation and drift detection
+terraform apply → resource provisioning in AWS
+
+Evidence of Deployment
+
 
 Terraform Apply Output:
 
@@ -46,50 +51,68 @@ IAM Policy JSON:
 
 ![IAM Policy](docs/images/iam-policy-json.png)
 
-**Security Design Principles**
-- Least privilege IAM access model
-- No administrative permissions
-- Explicit S3 read-only scoping
-- Infrastructure-as-Code enforcement
-- Fully reproducible deployments
+Security Design Principles
+
+Least-privilege IAM access (only required S3 actions granted)
+Explicit policy scoping to S3 read operations
+No administrative or wildcard IAM permissions
+Infrastructure-as-Code enforced identity provisioning
+Fully reproducible AWS deployments via Terraform
+---
+
+### 2. VPC Network Architecture (Terraform)
+
+**Overview**  
+Designed and deployed a basic AWS VPC network using Terraform to demonstrate foundational cloud networking concepts, including subnet segmentation, routing control, and isolated infrastructure design.
 
 ---
 
-### 2. VPC Network Architecture
+**Architecture**
 
-**Overview**
-Basic AWS VPC design implementing segmented network architecture with public and private subnets.
+```mermaid
+flowchart LR
+    A["Terraform CLI"] --> B["AWS Provider"]
+    B --> C["VPC"]
+    C --> D["Public Subnet"]
+    C --> E["Private Subnet"]
+    D --> F["Internet Gateway"]
+    D --> G["Route Table"]
+```
 
-**Resources**
-- VPC with custom CIDR block
-- Public and private subnets
-- Route tables and routing rules
+Resources Deployed
 
-**Deployment Flow**
-- terraform init — provider setup
-- terraform plan — change validation
-- terraform apply — resource provisioning
+VPC with custom CIDR block
+Public subnet (internet-accessible tier)
+Private subnet (isolated workload tier)
+Internet Gateway
+Route table associations
 
-**Evidence of Deployment**
+Deployment Workflow
 
-Terraform Apply Output:
+terraform init → provider initialization
+terraform plan → validation of network changes
+terraform apply → provisioning of VPC infrastructure
 
-![Terraform Apply](docs/images/vpc-terraform-apply.png)
+Evidence of Deployment
 
-VPC Created in AWS Console:
+Terraform apply executed successfully 
+![VPC Terraform Apply](docs/images/vpc-terraform-apply.png)
 
-![VPC Console](docs/images/vpc-console.png)
+VPC created and visible in AWS console
+![VPC Console View](docs/images/vpc-console.png)
 
-Subnets Created:
+Subnets and routing tables properly associated
+![Subnet Configuration](docs/images/vpc-subnets.png)
 
-![Subnets](docs/images/vpc-subnets.png)
 
-**Security Design Principles**
-- Network segmentation between public and private tiers
-- Explicit routing rules — no implicit access
-- Private subnets isolated from direct internet exposure
+Security Design Principles
 
----
+Network segmentation between public and private tiers
+Controlled internet exposure via public subnet only
+Private subnet isolation from direct inbound access
+Explicit routing configuration (no implicit networking paths)
+Infrastructure-as-Code enforced network consistency
+
 
 ### 3. CI/CD Pipeline (Terraform Validation)
 
