@@ -104,13 +104,12 @@ Subnets and routing tables properly associated
 ![Subnet Configuration](docs/images/vpc-subnets.png)
 
 
-Security Design Principles
-
-Network segmentation between public and private tiers
-Controlled internet exposure via public subnet only
-Private subnet isolation from direct inbound access
-Explicit routing configuration (no implicit networking paths)
-Infrastructure-as-Code enforced network consistency
+**Security Design Principles**
+- Network segmentation between public and private tiers
+- Controlled internet exposure via public subnet only
+- Private subnet isolation from direct inbound access
+- Explicit routing configuration (no implicit networking paths)
+- Infrastructure-as-Code enforced network consistency
 
 
 ### 3. CI/CD Pipeline (Terraform Validation)
