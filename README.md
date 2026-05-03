@@ -51,13 +51,12 @@ IAM Policy JSON:
 
 ![IAM Policy](docs/images/iam-policy-json.png)
 
-Security Design Principles
-
-Least-privilege IAM access (only required S3 actions granted)
-Explicit policy scoping to S3 read operations
-No administrative or wildcard IAM permissions
-Infrastructure-as-Code enforced identity provisioning
-Fully reproducible AWS deployments via Terraform
+**Security Design Principles**
+- Least privilege IAM (only required S3 actions)
+- No administrative or wildcard permissions
+- Explicit resource-level policy scoping
+- Infrastructure-as-Code enforced identity provisioning
+- Fully reproducible Terraform deployments
 ---
 
 ### 2. VPC Network Architecture (Terraform)
