@@ -41,7 +41,7 @@ Evidence of Deployment
 
 Terraform Apply Output:
 
-![Terraform Apply](docs/images/terraform-apply.png)
+![Terraform Apply](docs/images/iam-terraform-apply.png)
 
 IAM User Created:
 
@@ -95,14 +95,14 @@ terraform apply → provisioning of VPC infrastructure
 Evidence of Deployment
 
 Terraform apply executed successfully 
-![VPC Terraform Apply](docs/images/vpc-terraform-apply.png)
+![Terraform Apply](docs/images/vpc-terraform-apply.png)
 
 VPC created and visible in AWS console
 ![VPC Console View](docs/images/vpc-console.png)
 
 Subnets and routing tables properly associated
 ![Subnet Configuration](docs/images/vpc-subnets.png)
-
+![Route Table](docs/images/vpc-route-table.png)
 
 **Security Design Principles**
 - Network segmentation between public and private tiers
