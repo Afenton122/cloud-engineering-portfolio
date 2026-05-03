@@ -16,14 +16,13 @@ Hands-on cloud engineering portfolio focused on AWS infrastructure, identity sec
 
 ```mermaid
 flowchart LR
-    A[Developer / Terraform CLI] --> B[AWS Provider]
-    B --> C[IAM User: cloud-security-user]
-    C --> D[IAM Policy: S3ReadOnlyPolicy]
-    D --> E[AWS Services (S3 Access)]
+    A["Developer / Terraform CLI"] --> B["AWS Provider"]
+    B --> C["IAM User - cloud-security-user"]
+    C --> D["IAM Policy - S3ReadOnlyPolicy"]
+    D --> E["AWS Services - S3 Access"]
 ```
 
 ### 2. VPC Network Architecture
-
 
 - VPC with public/private subnets
 - Basic routing and network segmentation
