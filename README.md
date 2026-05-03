@@ -1,6 +1,8 @@
 # Cloud Engineering & Security Portfolio
 
-Hands-on cloud engineering portfolio focused on AWS infrastructure, identity security, and Infrastructure-as-Code using Terraform.
+Production-style cloud engineering portfolio demonstrating AWS infrastructure design, identity security, and Infrastructure-as-Code automation using Terraform and GitHub Actions.
+
+The repository focuses on secure-by-default architecture, reproducible deployments, and automated validation pipelines aligned with modern DevSecOps practices.
 
 ---
 
@@ -11,7 +13,7 @@ Hands-on cloud engineering portfolio focused on AWS infrastructure, identity sec
 ### 1. IAM Security Baseline (Terraform)
 
 **Overview**
-Implemented a least-privilege IAM identity model using Terraform to provision an AWS IAM user and attach a scoped S3 read-only policy. This demonstrates secure-by-default identity provisioning using Infrastructure-as-Code.
+Designed and deployed a least-privilege IAM model using Terraform to enforce secure identity provisioning in AWS. The architecture explicitly restricts access to S3 read-only operations, eliminating administrative access and wildcard permissions to follow least-privilege security principles.
 
 **Architecture**
 
@@ -23,19 +25,19 @@ flowchart LR
     D --> E["S3 Read-Only Access"]
 ```
 
-**Resources Deployed**
+**Resources Provisioned**
 - IAM User: cloud-security-user
-- IAM Policy: S3ReadOnlyPolicy (S3 GetObject + ListBucket permissions)
+- IAM Policy: S3ReadOnlyPolicy (explicit S3 GetObject + ListBucket access)
 - IAM Policy Attachment (User to Policy binding)
 
 **Deployment Workflow**
-- terraform init — provider initialization
+- terraform init — provider initialization and plugin resolution
 - terraform plan — change validation and drift detection
-- terraform apply — resource provisioning in AWS
+- terraform apply — infrastructure provisioning in AWS
 
 **Evidence of Deployment**
 
-Terraform Apply Output:
+Terraform Execution:
 
 ![Terraform Apply](docs/images/iam-terraform-apply.png)
 
@@ -43,23 +45,23 @@ IAM User Created:
 
 ![IAM User](docs/images/iam-user-details.png)
 
-IAM Policy JSON:
+IAM Policy Definition:
 
 ![IAM Policy](docs/images/iam-policy-json.png)
 
 **Security Design Principles**
-- Least privilege IAM (only required S3 actions)
-- No administrative or wildcard permissions
-- Explicit resource-level policy scoping
+- Least privilege IAM access enforced at identity layer
+- Explicit resource-level permission scoping (no wildcards)
+- No administrative privileges assigned
 - Infrastructure-as-Code enforced identity provisioning
-- Fully reproducible Terraform deployments
+- Fully reproducible and auditable deployments
 
 ---
 
 ### 2. VPC Network Architecture (Terraform)
 
 **Overview**
-Designed and deployed a basic AWS VPC network using Terraform to demonstrate foundational cloud networking concepts including subnet segmentation, routing control, and isolated infrastructure design. NAT Gateway excluded to avoid cost — architecture is documented as proof of concept for private subnet egress design.
+Designed and deployed a modular AWS VPC network using Terraform to demonstrate secure cloud networking principles, including subnet segmentation, routing control, and workload isolation.
 
 **Architecture**
 
@@ -73,37 +75,41 @@ flowchart LR
     D --> G["Route Table"]
 ```
 
-**Resources Deployed**
+**Resources Provisioned**
 - VPC with custom CIDR block
-- Public subnet (internet-accessible tier)
+- Public subnet (internet-facing tier)
 - Private subnet (isolated workload tier)
 - Internet Gateway
 - Route table associations
 
 **Deployment Workflow**
 - terraform init — provider initialization
-- terraform plan — validation of network changes
-- terraform apply — provisioning of VPC infrastructure
+- terraform plan — network configuration validation
+- terraform apply — infrastructure provisioning
 
 **Evidence of Deployment**
 
-Terraform Apply Output:
+Terraform Execution:
 
 ![VPC Terraform Apply](docs/images/vpc-terraform-apply.png)
 
-VPC Created in AWS Console:
+VPC Configuration:
 
 ![VPC Console](docs/images/vpc-console.png)
 
-Subnets Created:
+Subnet Configuration:
 
 ![Subnets](docs/images/vpc-subnets.png)
 
+Route Table Configuration:
+
+![Route Table](docs/images/vpc-route-table.png)
+
 **Security Design Principles**
 - Network segmentation between public and private tiers
-- Controlled internet exposure via public subnet only
-- Private subnet isolation from direct inbound access
-- Explicit routing configuration (no implicit networking paths)
+- Explicit routing control (no implicit internet access)
+- Private subnet isolation from direct inbound exposure
+- Controlled internet ingress via public subnet only
 - Infrastructure-as-Code enforced network consistency
 
 ---
@@ -111,27 +117,40 @@ Subnets Created:
 ### 3. CI/CD Pipeline (Terraform Validation)
 
 **Overview**
-GitHub Actions pipeline for Terraform validation and infrastructure consistency checks on every commit and pull request.
+Implemented a GitHub Actions CI pipeline to automate Terraform validation checks on every commit and pull request. This pipeline enforces shift-left validation, ensuring infrastructure issues are detected before deployment.
 
-**Pipeline Steps**
-- terraform fmt — formatting validation
-- terraform plan — execution dry run
-- Automated checks triggered on every push
+**Pipeline Flow**
 
-**Evidence**
+```mermaid
+flowchart LR
+    A["Git Push / PR"] --> B["GitHub Actions"]
+    B --> C["terraform fmt"]
+    C --> D["terraform init"]
+    D --> E["terraform validate"]
+    E --> F["Validation Result"]
+```
 
-GitHub Actions Workflow Run:
+**Pipeline Stages**
+- terraform fmt — formatting consistency enforcement
+- terraform init — provider and dependency resolution
+- terraform validate — configuration correctness validation
+
+**Evidence of Execution**
+
+CI Pipeline Run:
 
 ![Actions Run](docs/images/cicd-actions-run.png)
 
-Workflow Success:
+Successful Validation:
 
 ![Actions Success](docs/images/cicd-actions-success.png)
 
 **Design Principles**
-- Shift-left validation — catch errors before apply
-- No manual intervention required for validation
-- Consistent formatting enforced across all contributors
+- Shift-left validation for infrastructure safety
+- Automated enforcement of Terraform standards
+- Stateless execution in ephemeral CI environments
+- Consistent validation across all contributors
+- Reproducible infrastructure testing pipeline
 
 ---
 
@@ -142,6 +161,7 @@ AWS | Terraform | GitHub Actions | IAM | Cloud Networking
 
 ## Focus Areas
 - Cloud Security Architecture
-- Identity & Access Management
-- Infrastructure as Code
-- DevOps Security
+- Identity & Access Management (IAM)
+- Infrastructure as Code (IaC)
+- Secure Cloud Networking
+- CI/CD Automation and Validation Pipelines
