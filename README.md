@@ -41,7 +41,7 @@ Evidence of Deployment
 
 Terraform Apply Output:
 
-![Terraform Apply](docs/images/terraform-apply-success.png)
+![Terraform Apply](docs/images/terraform-apply.png)
 
 IAM User Created:
 
