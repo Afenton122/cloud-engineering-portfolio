@@ -12,7 +12,13 @@ Hands-on cloud engineering portfolio focused on AWS infrastructure, identity sec
 - AWS IAM user and least-privilege policy
 - Infrastructure-as-code using Terraform
 
-## Architecture
+```md
+### 1. IAM Security Baseline (Terraform)
+
+- AWS IAM user and least-privilege policy
+- Infrastructure-as-code using Terraform
+
+#### Architecture
 
 ```mermaid
 flowchart LR
@@ -20,7 +26,6 @@ flowchart LR
     B --> C[IAM User: cloud-security-user]
     C --> D[IAM Policy: S3ReadOnlyPolicy]
     D --> E[AWS Services (S3 Access)]
-
 ### 2. VPC Network Architecture
 - VPC with public/private subnets
 - Basic routing and network segmentation
