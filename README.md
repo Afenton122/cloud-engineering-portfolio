@@ -255,6 +255,35 @@ This repository demonstrates end to end AWS infrastructure engineering capabilit
 
 ---
 
+---
+
+### 5. IAM Security Audit Script (Python + boto3)
+
+**Overview**
+Python script that queries the AWS IAM API to list all users and their attached policies. Built to support least-privilege access reviews and identify over-privileged or unattached identities across an AWS account.
+
+**Why This Matters**
+Manual IAM reviews don't scale. This script automates the audit process, making it repeatable and consistent — the same way a security team would approach access governance at scale.
+
+**Script Location**
+scripts/iam_audit.py
+
+**Sample Output**
+
+![IAM Audit Output](docs/images/iam-audit-output.png)
+
+**Technical Details**
+- Language: Python 3
+- Library: boto3 (AWS SDK)
+- Auth: AWS CLI credentials via aws configure
+- Runtime: Local or CI environment
+
+**Security Value**
+- Rapid IAM access review across all users
+- Identifies users with no policies attached
+- Detects inline vs managed policy assignments
+- Repeatable and automatable audit process
+
 ## Tools
 AWS | Terraform | GitHub Actions | IAM | Cloud Networking
 
